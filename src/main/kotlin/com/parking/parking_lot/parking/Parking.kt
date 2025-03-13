@@ -1,6 +1,5 @@
 package com.parking.parking_lot.parking
 
-import com.parking.parking_lot.fee.Fee
 import com.parking.parking_lot.operationHours.OperatingHours
 import jakarta.persistence.*
 
@@ -12,20 +11,20 @@ data class Parking(
         val id: Long,
 
         @Column(nullable = false)
-        val name: String,//이름
+        val name: String,//주차장 이름
 
-        val address: String? = "", //주소
+        val address: String? = "", //도로명 주소
 
         val latitude: Double,//위도
 
         val longitude: Double,//경도
 
-        val totalSpots: Int,
+
+        val totalSpots: Int,//주차장 최대수용
 
 
-        @OneToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name="fee_id")
-        val fee: Fee? = null, //요금정보
+        val feePerHour: Int,//시간당요금
+
 
         @OneToMany(mappedBy = "parking", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         val operatingHours: List<OperatingHours> = listOf()
