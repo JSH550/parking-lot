@@ -25,6 +25,9 @@ data class Parking(
 
         val feePerHour: Int,//시간당요금
 
+        @Enumerated(EnumType.STRING)
+        val ownership: Ownership?= Ownership.PUBLIC,//공영/민영
+
 
         @OneToMany(mappedBy = "parking", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         val operatingHours: List<OperatingHours> = listOf()
