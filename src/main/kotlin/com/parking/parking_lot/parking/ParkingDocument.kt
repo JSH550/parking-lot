@@ -3,6 +3,7 @@ package com.parking.parking_lot.parking
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.parking.parking_lot.operationHours.dto.OperationHoursDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
@@ -36,5 +37,8 @@ data class ParkingDocument @JsonCreator constructor(
 
     @GeoPointField
     @JsonProperty("location")
-    val location: GeoPoint // 예 "37.5666,126.9780"
+    val location: GeoPoint, // 예 "37.5666,126.9780"
+
+    @JsonProperty("operatingHours")
+    val operatingHours: List<OperationHoursDto>
 )
