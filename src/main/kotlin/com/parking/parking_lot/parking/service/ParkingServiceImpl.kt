@@ -4,6 +4,8 @@ import com.parking.parking_lot.parking.dto.ParkingSearchDto
 import com.parking.parking_lot.parking.repository.ParkingElasticSearchRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.elasticsearch.core.geo.GeoPoint
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,12 +23,12 @@ class ParkingServiceImpl(
     @Transactional(readOnly = true)
     override fun searchBySearchWord(searchWord: String): List<ParkingSearchDto> {
 
-        //Elasticsearch 에서 검색어로 검색, DTO로 변환하여 반환
-        return parkingElasticSearchRepository
-            .findByNameContaining(searchWord)
-            .map { ParkingSearchDto.fromParkingDocument(it) }//DTO 변환
+        val pageRequest:Pageable = PageRequest.of(0,20)//페이지네이션 지정
 
-
+        //elasticsearch 에서 주차장 이름 또는 도로명으로 검색, 결과 가져와 DTO로 변환하여 반환
+       return parkingElasticSearchRepository
+            .searchByNameOrAddress(searchWord,pageRequest)
+            .map{ParkingSearchDto.fromParkingDocument(it)}
     }
 
     @Transactional(readOnly = true)
