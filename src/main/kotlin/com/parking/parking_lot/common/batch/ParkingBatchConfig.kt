@@ -1,7 +1,7 @@
 package com.parking.parking_lot.common.batch
 
-import com.parking.parking_lot.parking.Parking
 import com.parking.parking_lot.parking.ParkingDocument
+import com.parking.parking_lot.parking.dto.ParkingConvertDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.Job
@@ -35,7 +35,7 @@ class ParkingBatchConfig(
     @Bean
     fun syncParkingStep(): Step {
         return StepBuilder("syncParkingStep", jobRepository)
-            .chunk<Parking, ParkingDocument>(500, transactionManager)
+            .chunk<ParkingConvertDto, ParkingDocument>(500, transactionManager)//chunkSize Reader
             .reader(reader)
             .processor(processor)
             .writer(writer)
