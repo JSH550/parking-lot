@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking</title>
+    <script defer th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+<!--네이버 지도 API-->
+    <script th:src="|https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}|"></script>
+
+</head>
+<body>
+
+<!-- 상단 네비게이션 -->
+<div class="navbar">
+    <div class="logo">Pmap</div>
+    <input type="text" id="searchInput" placeholder="장소, 주소 검색">
+    <button id="clearSearch" class="clear-btn">✖</button>
+
+</div>
+
+<!-- 검색 툴바 -->
+<div id="searchToolbar" class="search-toolbar">
+    <div class="recent-searches">
+        <p>최근 검색 기록이 없습니다.</p>
+    </div>
+    <ul id="searchResults"></ul> <!-- 검색 결과 표시 리스트 추가 -->
+</div>
+
+
+<div id="parkingDetails" class="details-container">
+    <button id="closeDetails" class="close-btn">✖</button>
+    <h2 id="parkingName">주차장 이름</h2>
+    <p id="parkingAddress">주소: </p>
+    <p id="parkingFee">요금: </p>
+    <h3>운영 시간</h3>
+    <div id="parkingOperatingHours"></div>
+
+
+</div>
+
+<button id="reloadLocation" class="location-btn">현재 위치 재검색</button>
+
+
+
+<!-- 지도 영역 -->
+<div id="map"></div>
+
+
+</body>
+</html>
