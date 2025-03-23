@@ -13,11 +13,13 @@ data class OperatingHours (
         val id: Long? = null,
 
         @Enumerated(EnumType.STRING)
-        val dateType: DateType,
+        val dateType: DateType? = DateType.WEEKDAY,//평일,토요일,공휴일
 
-        val openTime: String,
+        val openTime: String,//오픈시간
 
-        val closeTIme: String,
+        val closeTime: String,//마감시간
+
+
 
 
         @ManyToOne(fetch = FetchType.LAZY)

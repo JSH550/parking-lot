@@ -6,7 +6,7 @@ import com.parking.parking_lot.operationHours.OperatingHours
 
 
 data class OperationHoursDto @JsonCreator constructor(
-    @JsonProperty("dataType") val dataType: String,
+    @JsonProperty("dataType") val dateType: String,
     @JsonProperty("openTime") val openTime: String,
     @JsonProperty("closeTime") val closeTime: String
 ) {
@@ -15,7 +15,7 @@ data class OperationHoursDto @JsonCreator constructor(
         fun fromOperating(operatingHours: OperatingHours): OperationHoursDto {
             return OperationHoursDto(
 
-                dataType = operatingHours.dateType.toString(),
+                dateType = operatingHours.dateType.toString(),
                 openTime = operatingHours.openTime,
                 closeTime = operatingHours.closeTime,
             )

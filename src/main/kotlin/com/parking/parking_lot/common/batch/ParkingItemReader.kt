@@ -1,6 +1,7 @@
 package com.parking.parking_lot.common.batch
 
 import com.parking.parking_lot.operationHours.OperatingHoursRepository
+import com.parking.parking_lot.operationHours.dto.OperationHoursDto
 import com.parking.parking_lot.operationHours.service.OperatingHoursService
 import com.parking.parking_lot.parking.dto.ParkingConvertDto
 import com.parking.parking_lot.parking.repository.ParkingRepository
@@ -14,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger
 @Component
 class ParkingItemReader(
     private val parkingRepository: ParkingRepository,
-    private val operatingHoursService: OperatingHoursService
 ) : ItemReader<ParkingConvertDto> {
 
     companion object {
@@ -33,11 +33,13 @@ class ParkingItemReader(
             val page = parkingRepository.findAll(PageRequest.of(currentPage, pageSize))//페이지네이션정보로 레코드 조회
             if (page.hasContent()) {
                 currentItems = page.content.map { parking -> //  변환된 DTO를 currentItems에 저장
+
+                    val operatingHours = parking.operatingHours.map { OperationHoursDto.fromOperating(it) }
                     //Parking ID 로 운영시간 레코드를 조회하여 DTO 로 변환
-                    val operatingHours = operatingHoursService.getByParkingId(parking.id)
+//                    val operatingHours = parking.id?.let { operatingHoursService.getByParkingId(it) } ?: emptyList()
                     //Parking 레코드를 DTO로 변환
                     ParkingConvertDto(
-                        id = parking.id,
+                        id = parking.id ?: throw IllegalStateException("Parking ID가 null입니다."),
                         name = parking.name,
                         address = parking.address,
                         latitude = parking.latitude,
