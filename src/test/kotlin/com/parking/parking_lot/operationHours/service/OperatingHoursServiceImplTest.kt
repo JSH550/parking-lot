@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 
-class OperatingHoursServiceImplTest() {
+class OperatingHoursServiceImplTest {
 
     private val operatingHoursRepository: OperatingHoursRepository = mockk()
     private val operatingHoursService = OperatingHoursServiceImpl(operatingHoursRepository)
@@ -64,8 +64,8 @@ class OperatingHoursServiceImplTest() {
 
         // Then
         assertEquals(2, result.size)
-        assertEquals("WEEKDAY", result[0].dataType)
-        assertEquals("WEEKDAY", result[1].dataType)
+        assertEquals("WEEKDAY", result[0].dateType)
+        assertEquals("WEEKDAY", result[1].dateType)
     }
 
     @Test
@@ -109,8 +109,8 @@ class OperatingHoursServiceImplTest() {
 
         // Then
         assertEquals(2, result.size)
-        assertEquals("WEEKDAY", result[0].dataType)
-        assertEquals("SATURDAY", result[1].dataType)
+        assertEquals("WEEKDAY", result[0].dateType)
+        assertEquals("SATURDAY", result[1].dateType)
 
 
     }
